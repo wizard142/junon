@@ -44,7 +44,23 @@ class GameExplorer {
       colony_filter_tab.addEventListener("click", this.onColonyFilterTabClick.bind(this), true)
     }
 
+    this.emptyState = this.el.querySelector('.colony_empty_state')
+    this.emptyStateObserver = new MutationObserver(this.updateEmptyState.bind(this))
+    this.emptyStateObserver.observe(this.el, {
+      subtree: true, childList: true, attributes: true,
+      attributeFilter: ['class', 'style', 'data-filter', 'data-hidden', 'data-private']
+    })
+    this.updateEmptyState()
+
     this.listTopColonies() 
+  }
+
+  updateEmptyState() {
+    const list = Array.from(this.el.querySelectorAll('.main_colony_list, .search_colony_list'))
+      .find((el) => el.getClientRects().length > 0)
+    const hasVisibleEntry = list && Array.from(list.querySelectorAll('.team_entry_row, .sector_entry_row'))
+      .some((el) => el.getClientRects().length > 0)
+    this.emptyState.hidden = !list || hasVisibleEntry
   }
 
   setMiniGames(miniGames) {

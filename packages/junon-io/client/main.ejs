@@ -93,23 +93,24 @@
 
     <div id='firebaseui-auth-container'></div>
 
-    <p id='game_caption'>JUNON . IO </p>    
+    <div id='game_caption'><span class='junon_wordmark'>JUNON<span class='junon_wordmark_suffix'>.io</span></span><div class='junon_tagline'><%= t('Build. Explore. Survive.') %></div></div>
     <div class='middle_container'>
+        <div class='station_home_intro'><div class='station_home_eyebrow'><%= t('Your next colony starts here') %></div><p><%= t('Build a space station, gather resources, and survive together.') %></p></div>
         <div class='home_user_action_container'>
             <div class='home_action_row'>
-                <div class='default_play_btn btn'>
+                <button type='button' class='default_play_btn btn'>
                     <span><%= t('New Game') %></span>
                     <div class="play_spinner lds-ring"><div></div><div></div><div></div><div></div></div>
-                </div>
+                </button>
 
-                <div class='tutorial_menu_btn btn'>
+                <button type='button' class='tutorial_menu_btn btn'>
                     <span><%= t('Tutorial') %></span>
                     <div class="play_spinner lds-ring"><div></div><div></div><div></div><div></div></div>
-                </div>
+                </button>
 
-                <div class='settings_menu_btn btn'>
-                    <img src="/assets/images/settings_icon.png" />
-                </div>
+                <button type='button' class='settings_menu_btn btn' aria-label='<%= t('Settings') %>'>
+                    <img src="/assets/images/settings_icon.png" alt=''>
+                </button>
             </div>
 
             <div id='language_selector'>
@@ -130,8 +131,8 @@
 
         <div class='survival_list_container'>
             <div class='minigame_list_header'>
-                <input class='search_world_input' type="text" name="" placeholder="Enter world name">
-                <button class='search_world_btn'>Search</button>
+                <input class='search_world_input' type="text" name="" placeholder="<%= t('Search colonies') %>" aria-label="<%= t('Search colonies') %>">
+                <button type='button' class='search_world_btn'><%= t('Search') %></button>
             </div>
         </div>
         <div class='browse_games_container'>
@@ -176,6 +177,7 @@
                 </div>
                 <div id='region_tab_content'>
                 </div>
+                <div class='colony_empty_state' hidden role='status'><strong><%= t('No colonies here yet') %></strong><span><%= t('Try another filter or start a new colony.') %></span></div>
             </div>
         </div>
     </div>
@@ -203,7 +205,7 @@
     </div>
 
     <div id="event_manager_container" class="modal_menu">
-        <div class="cancel_btn"></div>
+        <button type='button' class="cancel_btn" aria-label='<%= t('Close') %>'></button>
         <div class="menu_main_header">Event badge manager</div>
         <div class="add_badge_form">
             <p>Username</p>
@@ -215,7 +217,7 @@
     </div>
     
     <div id='ban_manager_container' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_main_header'>Ban List</div>
         <div class='ban_status_message'>Authorizing..</div>
         <div class='global_ban_list_container'>
@@ -282,10 +284,10 @@
     </div>
     
     <div class='main_menu_navigator'>
-        <div class='back_main_menu_btn'>
-            <img src="/assets/images/arrow_back_icon.png" />
+        <button type='button' class='back_main_menu_btn'>
+            <img src="/assets/images/arrow_back_icon.png" alt=''>
             <%= t('Back') %>
-        </div>
+        </button>
 
         <div class='game_invite_container'>
             <div class='game_invite_name'></div>
@@ -445,14 +447,14 @@
 
 
 <div id='confirm_menu' class='modal_menu'>
-    <div class='cancel_btn'></div>
+    <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
     <div class='confirm_message'></div>
     <button class='confirm_cancel_btn ui_btn'><%= t('No') %></button>
     <button class='confirm_ok_btn ui_btn'><%= t('Yes') %></button>
 </div>
 
 <div id='import_sector_menu' class='modal_menu'>
-    <div class='cancel_btn'></div>
+    <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
     <h3>Replace Save File</h3>
     <div class='sector_name'></div>
     <div class='import_warning'>Make sure to backup your save before overwriting with a new one</div>
@@ -462,7 +464,7 @@
 </div>
 
 <div id='select_difficulty_menu' class='modal_menu'>
-    <div class='cancel_btn'></div>
+    <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
     <div class='game_modes_list' tabindex="0">
         <div class='menu_main_header'><%= t('Choose a Game Mode') %></div>
         <div class='game_mode' data-mode='peaceful'>
@@ -485,7 +487,7 @@
 </div>
 
 <div id='team_full_menu' class='modal_menu'>
-    <div class='cancel_btn'></div>
+    <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
     <div class='menu_main_header'><%= t('Team Full') %></div>
     <div class='team_full_action_container'>
         <div class='team_full_description'></div>
@@ -627,7 +629,7 @@
     </div>
 
     <div id='map_menu' class="modal_menu">
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_main_header'><%= t('Map') %></div>
         <div id='map_menu_frame'>
             <canvas id='map_terrain_canvas' width="512" height="512"></canvas>
@@ -706,12 +708,12 @@
     </div>
 
     <div id='debug_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div id='debug_network_graph'></div>
     </div>
 
     <div id='player_menu' class='base_menu modal_menu ' >
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_main_header'>Player</div>
         <div class="add_player_team_container" >
             <div class='add_player_btn team_action_btn'>Add to Colony</div>
@@ -742,7 +744,7 @@
     </div>
 
     <div id='command_block_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_main_header'><%= t('Command Blocks') %></div>
         <div class='command_block_tab_container'>
             <div class='command_block_tab selected' data-view='triggers'><%= t('Triggers') %></div>
@@ -809,7 +811,7 @@
     </div>
 
     <div id='command_block_picker' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_main_header'><%= t('Triggers') %></div>
         <div class='left_content'></div>
         <div class='right_content'>
@@ -832,7 +834,7 @@
     </div>
 
     <div id='trade_menu' class='base_menu modal_menu ' >
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_main_header'><%= t('Trade') %></div>
         <div class="trade_inventory" >
             <div class="trade_type_tab_container">
@@ -864,7 +866,7 @@
     </div>
 
     <div id='slave_trade_menu' class='base_menu modal_menu ' >
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_main_header'><%= t('Trade Slaves') %></div>
         <div class="trade_inventory" >
             <div class="trade_type_tab_container">
@@ -885,7 +887,7 @@
 
     <div id='inventory_menu' class='base_menu modal_menu ' >
         <div class='menu_main_header'><%= t('Inventory') %></div>
-        <div id='player_inventory_cancel_btn' class='cancel_btn'></div>
+        <button type='button' id='player_inventory_cancel_btn' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div id='player_equipment' class="storage" data-storage-id='2'>
             <div id='player_inventory_header' class='menu_main_header'><%= t('Suit') %></div>
             <div class='equipment_slot inventory_slot armor' data-index='0'><img src=''></div>
@@ -910,7 +912,7 @@
 
     <div id='blueprint_menu' class='modal_menu'>
         <div id='blueprint_container_header' class='menu_main_header'><%= t('Crafting') %></div>
-        <div id='blueprint_continer_cancel_btn' class='cancel_btn'></div>
+        <button type='button' id='blueprint_continer_cancel_btn' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div id='blueprint_main_container' class=''></div>
         <div id='product_main_container' class=''>
             <div class='product_container'>
@@ -937,7 +939,7 @@
 
     <div id="keypad_menu" class="modal_menu">
         <div id="keypad_container_header" class="menu_main_header"><%= t('Keypad') %></div>
-        <div id='keypad_container_cancel_btn' class='cancel_btn'></div>
+        <button type='button' id='keypad_container_cancel_btn' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class="keypad_input_holder">
             <input type="text" id="keypad_code_value"></input>
             
@@ -1030,7 +1032,7 @@
     </div>
 
     <div id='welcome_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='blurb'>
             <span class='welcome_menu_header'><%= t('Welcome') %></span>
             <p></p>
@@ -1048,7 +1050,7 @@
     
 
     <div id='tutorial_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='tutorial_text main' style='opacity: 1;'></div>
         <div class='tutorial_text corpse' style='opacity: 1;'></div>
     </div>
@@ -1083,7 +1085,7 @@
 
     <div id='storage_menu' class='modal_menu'>
         <div id='storage_container_header' class='menu_main_header'>Fridge</div>
-        <div id='storage_container_cancel_btn' class='cancel_btn'></div>
+        <button type='button' id='storage_container_cancel_btn' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='center_container'>
             <div class='menu_description'></div>
             <div id='storage_inventory' class='storage'></div>
@@ -1096,7 +1098,7 @@
 
     <div id='vending_machine_menu' class='modal_menu'>
         <div id='storage_container_header' class='menu_main_header'>Vending Machine</div>
-        <div id='storage_container_cancel_btn' class='cancel_btn'></div>
+        <button type='button' id='storage_container_cancel_btn' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div id="vending_status_message"></div>
         <div class='vending_machine_tab_container'>
             <div class='vending_machine_tab selected' data-tab='purchase'><%= t('Purchase') %></div>
@@ -1133,7 +1135,7 @@
 
     <div id='oxygen_tank_menu' class='modal_menu'>
         <div class='menu_main_header'>Oxygen Tank</div>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='entity_description'>
             <div class='oxygen_remaining'>
                 <span class='key'>Oxygen Remaining: </span><span class="value">150/200</span>
@@ -1150,7 +1152,7 @@
 
     <div id='craft_menu' class='modal_menu'>
         <div id='crafting_container_header' class='menu_main_header'><%= t('Stove') %></div>
-        <div id='crafting_container_cancel_btn' class='cancel_btn'></div>
+        <button type='button' id='crafting_container_cancel_btn' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div id='crafting_template_container'></div>
         <div id='crafting_status_message'></div>
         <div id='product_main_container' class=''>
@@ -1170,7 +1172,7 @@
 
     <div id='processor_menu' class='modal_menu'>
         <div class='menu_main_header'><%= t('Processor') %></div>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_description'></div>
         <div class='processor_status_message'></div>
         <div class='processor_storage storage'>
@@ -1185,7 +1187,7 @@
 
     <div id='hangar_controller_menu' class='modal_menu'>
         <div class='menu_main_header'>Hangar Controller</div>
-        <div id='hangar_controller_cancel_btn' class='cancel_btn'></div>
+        <button type='button' id='hangar_controller_cancel_btn' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div id='hangar_list'>
         </div>
         <div id='hangar_build_mode_btn' >Add Hangar</div>
@@ -1205,7 +1207,7 @@
     </div>
 
     <div id='send_money_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='team_header menu_main_header'><%= t('Send Money') %></div>
         <div class='recepient_name_container'>
             <%= t('To') %>: 
@@ -1220,7 +1222,7 @@
     </div>
 
     <div id='atm_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='team_header menu_main_header'><%= t('ATM') %></div>
         <div class='atm_invalid_access'>
             <%= t('You must login to use this.') %>
@@ -1271,14 +1273,14 @@
     </div>
 
     <div id='change_name_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='team_header menu_main_header'><%= t('Change Name') %></div>
         <input class='change_name_input menu_input' maxlength='40' type='text' > 
         <button class='set_name_btn ui_btn'><%= t('Set') %></button>
     </div>
 
     <div id='sign_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='team_header menu_main_header'><%= t('Message') %></div>
         <div class='sign_message'></div>
         <textarea class='sign_message_input menu_input' maxlength='300' type='text' placeholder='Enter Text'> 
@@ -1289,7 +1291,7 @@
     </div>
 
     <div id='soil_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='team_header menu_main_header'><%= t('Choose Crop to Grow') %></div>
         <div class='crop_selection_container'></div>
         <div class='crop_selection_name'></div>
@@ -1299,7 +1301,7 @@
     </div>
 
     <div id='stove_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='food_selection_name'></div>
         <div class='food_selection_container'></div>
         <div class='stove_selection_notice'>* <%= t('StoveSlaveNotice') %></div>
@@ -1315,12 +1317,12 @@
     </div>
 
     <div id='slave_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='team_header menu_main_header'><%= t('Tasks') %></div>
     </div>
 
     <div id='permissions_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='team_header menu_main_header'><%= t('Permissions') %></div>
         <div class='access_permissions_container'>
             <div><%= t('Allow Access:') %></div>
@@ -1330,7 +1332,7 @@
     </div>
 
     <div id='user_profile_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='username_header menu_main_header'></div>
         <div class='user_profile_details'>
             <div class='tags'></div>
@@ -1352,7 +1354,7 @@
     </div>
 
     <div id='rail_stop_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='colony_info_container'>
             <div class='colony_info_entry colony_name_entry'>
                 <label><%= t('RailStationName') %></label>
@@ -1371,7 +1373,7 @@
     </div>
 
     <div id='manage_team_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='member_list_container'>
             <div class='team_header menu_main_header'><%= t('Colony') %></div>
             <div class='colony_info_tab_container'>
@@ -1731,7 +1733,7 @@
     </div>
 
     <div id='alliance_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_main_header'><%= t('Alliance') %></div>
         <div class='colony_info_container'>
             <div class='colony_info_entry'>
@@ -1759,7 +1761,7 @@
     </div>
 
     <div id='friends_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_main_header'><%= t('Friends') %></div>
         <div class="friends_tab_container">
             <div class='friend_tab' data-tab='search_players'><%= t('Search Users') %></div>
@@ -1781,7 +1783,7 @@
     </div>
 
     <div id='npc_dialog_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_main_header'></div>
         <div class='npc_choices_container'>
         </div>
@@ -1790,14 +1792,14 @@
     </div>
 
     <div id='vent_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='leave_vent_btn ui_btn'>Leave Vent</div>
         <div class='previous_vent_btn ui_btn'>Previous</div>
         <div class='next_vent_btn ui_btn'>Next</div>
     </div>
 
     <div id='terminal_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_main_header'><%= t('Terminal') %></div>
         <div class="terminal_tab_container">
             <div class='terminal_tab selected' data-tab='chat'><%= t('Chat') %></div>
@@ -1835,7 +1837,7 @@
     </div>
 
     <div id='color_picker_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_main_header'><%= t('Customize') %></div>
         <div class="color_picker_tab_container">
             <div class='picker_tab selected' data-customize='color'><%= t('Color') %></div>
@@ -1866,7 +1868,7 @@
     </div>
 
     <div id='suit_color_menu' class='modal_menu'>
-        <div class='cancel_btn'></div>
+        <button type='button' class='cancel_btn' aria-label='<%= t('Close') %>'></button>
         <div class='menu_main_header'><%= t('Customize') %></div>
         <div class="color_picker_tab_container">
             <div class='picker_tab selected' data-customize='color'><%= t('Color') %></div>

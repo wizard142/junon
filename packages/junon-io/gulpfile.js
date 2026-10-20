@@ -290,7 +290,8 @@ function copyStylesheets(cb) {
                        './client/stylesheets/firebaseui.css',
                        './client/stylesheets/style.css',
                        './client/stylesheets/mobile.css',
-                       './client/stylesheets/station.css'])
+                       './client/stylesheets/station.css',
+                       './client/stylesheets/interface.css'])
                  .pipe(concat('application.css'))
                  .pipe(gulpif(isProduction, rev()))
                  .pipe(gulp.dest(paths.dist + "stylesheets"))
