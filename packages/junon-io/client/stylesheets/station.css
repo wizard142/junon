@@ -1,0 +1,304 @@
+/* Illustrated survival UI: dark Junon hull plates, inset item wells and muted amber actions.
+   JS retains ownership of visibility and every inventory/protocol hook. */
+@font-face {
+    font-family: 'Lilita One';
+    src: url('../assets/fonts/LilitaOne-Regular.ttf') format('truetype');
+    font-display: swap;
+}
+:root {
+    --hull: #1c2630;
+    --hull-light: #34434e;
+    --well: #101922;
+    --ink: #080f15;
+    --cream: #eee6d6;
+    --gold: #c99c54;
+    --body-font: 'Trebuchet MS', 'DejaVu Sans', sans-serif;
+    --game-font: 'Lilita One', 'Trebuchet MS', sans-serif;
+}
+body, input, select, textarea { font-family: var(--body-font); }
+.modal_menu, .modal_menu div, .modal_menu span,
+#base_hud, #base_hud div, #base_hud span { font-family: var(--body-font); }
+
+/* Heavy silhouettes and raised rims connect the menus to the game artwork. */
+.modal_menu {
+    background: var(--hull);
+    border: 4px solid var(--ink);
+    border-radius: 12px;
+    color: #e0e6e6;
+    box-shadow: inset 0 3px 0 #3a4852, inset 0 -5px 0 #101922, 0 6px 0 #0007;
+    font-size: 14px;
+    line-height: 1.4;
+}
+.menu_main_header, .inventory_header {
+    font-family: var(--game-font) !important;
+    color: var(--cream);
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    text-shadow: 0 2px 0 #080f15;
+}
+.menu_main_header { font-size: 26px; padding-bottom: 14px; margin-bottom: 16px; border-bottom: 3px solid #101922; }
+.inventory_header { font-size: 18px; }
+input[type='text'], input[type='password'], input[type='number'], textarea, select {
+    box-sizing: border-box;
+    border: 3px solid var(--ink);
+    border-radius: 6px;
+    color: #fff7df;
+    background-color: var(--well);
+    box-shadow: inset 0 3px 0 #0003;
+    font-family: var(--body-font);
+    padding: 8px 10px;
+    font-size: 14px;
+}
+input::placeholder, textarea::placeholder { color: #bdc6c7; font-family: var(--body-font); }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+.btn, .main_menu_btn, .ui_btn, .craft_btn, #hangar_build_mode_btn {
+    border: 3px solid var(--ink);
+    border-radius: 7px;
+    background: #2d3a44;
+    color: #eee6d6;
+    box-shadow: inset 0 3px 0 #ffffff24, inset 0 -4px 0 #0003, 0 2px 0 #0005;
+    font-family: var(--game-font) !important;
+    font-size: 19px;
+    text-shadow: 0 2px 0 #0a1118;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+.btn:hover, .main_menu_btn:hover, .ui_btn:hover, .craft_btn:hover { background-color: #3c4d59; color: white; }
+.btn:active, .main_menu_btn:active, .ui_btn:active, .craft_btn:active { box-shadow: inset 0 3px 0 #0003; }
+.craft_btn { background: #946d35; color: #fff0cd; }
+.craft_btn:hover { background: #b18a49; }
+.craft_btn[data-disabled='true'], .ui_btn[data-disabled='true'], .ui_btn.disabled {
+    background: #202c36;
+    color: #82929c;
+    border-color: #101922;
+    box-shadow: inset 0 2px 0 #0002;
+    cursor: not-allowed;
+}
+.cancel_btn {
+    box-sizing: border-box;
+    width: 34px;
+    height: 34px;
+    right: 10px;
+    top: 10px;
+    z-index: 20;
+    background: #ad8347;
+    border: 3px solid var(--ink);
+    border-radius: 7px;
+    opacity: 1;
+    box-shadow: inset 0 2px 0 #fff5, inset 0 -3px 0 #0003;
+}
+.cancel_btn::after { content: '×'; position: absolute; inset: -5px 0 0; font: 32px var(--game-font); text-align: center; color: #161c20; }
+.cancel_btn:hover { background: #c6a05e; opacity: 1; }
+
+/* In-game controls float on the world, instead of sitting on black strips. */
+#top_bar_container, #bottom_bar_container { background: transparent; border: 0; pointer-events: none; }
+#hud_action_container { left: 18px; top: 16px; }
+.hud_btn {
+    box-sizing: border-box;
+    width: 42px;
+    height: 42px;
+    float: left;
+    padding: 8px;
+    margin-right: 6px;
+    border: 3px solid #080f15;
+    border-radius: 8px;
+    background: #202d37f2;
+    box-shadow: inset 0 2px 0 #ffffff30, inset 0 -4px 0 #0004, 0 3px 0 #0005;
+}
+.hud_btn img { width: 23px; height: 23px; opacity: 1; }
+.hud_btn:hover { background: #3a4b56; border-color: #c99c54; }
+.hud_btn_shortcut { bottom: -2px; left: -2px; font: 11px var(--game-font) !important; color: #fff3cc; opacity: 1; text-shadow: 1px 1px #151e24; }
+
+/* A compact survival cluster beside the hotbar. Dynamic fills stay untouched. */
+#player_stats {
+    top: auto;
+    bottom: 22px;
+    left: 20px;
+    padding: 10px 12px 6px;
+    background: #121e28ed;
+    border: 3px solid #080f15;
+    box-shadow: inset 0 2px 0 #ffffff18, 0 3px 0 #0005;
+    border-radius: 9px;
+}
+#player_stats .stat_container { width: 168px; height: 25px; }
+#player_stats .label { font-family: var(--game-font); font-size: 14px; color: #e7f0e9; }
+#player_stats .bar_container { width: 128px; height: 14px; margin-top: 1px; background: #17242b; border: 2px solid #162129; border-radius: 5px; overflow: hidden; }
+#player_stats .bar_fill { box-shadow: inset 0 2px 0 #ffffff30, inset 0 -3px 0 #0002; opacity: 1; }
+#player_stats .health_stat .bar_fill { background-color: #e76a66; }
+#player_stats .oxygen_stat .bar_fill { background-color: #72b8d5; }
+#player_stats .stamina_stat .bar_fill { background-color: #b5cb69; }
+#player_stats .hunger_stat .bar_fill { background-color: #e0ad5c; }
+#time_label { right: 20px; top: 16px; width: 170px; padding: 10px 12px; border: 3px solid #080f15; border-radius: 7px; background: #1a2731f2; box-shadow: inset 0 2px 0 #ffffff20, 0 3px 0 #0005; color: #fff1cc; font: 15px var(--game-font); }
+#mini_map_menu { top: 80px; right: 20px; border: 5px solid #2c3b46; border-radius: 8px; outline: 3px solid #080f15; box-shadow: inset 0 2px 0 #ffffff40, 0 5px 0 #0006; }
+#sector_description_menu { background: #15232ceb; border-radius: 6px; }
+#sector_description_menu:has(#sector_description_menu_content:empty) { padding: 0; background: transparent; }
+
+/* Large item silhouettes, numbered wells, a clearly equipped amber slot. */
+.inventory_slot {
+    background: #17232d;
+    border: 3px solid #080f15;
+    border-radius: 7px;
+    box-shadow: inset 0 3px 0 #0003, inset 0 -2px 0 #52697a44;
+}
+.inventory_slot:hover { opacity: 1; background: #2e414e; border-color: #9c9479; }
+.inventory_slot.active { border: 3px solid var(--gold); background: #4e4030; box-shadow: inset 0 2px 0 #ffffff30, 0 0 0 2px #171611; }
+.inventory_slot img { width: 72%; height: 72%; image-rendering: pixelated; }
+.inventory_slot:after { font: 14px var(--game-font); color: #fff5d8; bottom: 0; right: 3px; text-shadow: 1px 2px #172229; }
+.player_inventory_slot:before { font: 12px var(--game-font); color: #b8c3c5; top: 1px; left: 4px; }
+#player_quick_inventory_menu { width: auto; height: auto; left: 50%; margin-left: 0; bottom: 20px; transform: translateX(-50%); }
+#player_quick_inventory { width: auto; height: auto; display: inline-flex; gap: 7px; padding: 9px; border: 3px solid #080f15; border-radius: 12px; background: #1c2933ed; box-shadow: inset 0 3px 0 #ffffff25, inset 0 -4px 0 #0003, 0 4px 0 #0006; }
+#player_quick_inventory .inventory_slot { flex: 0 0 44px; width: 44px; height: 44px; margin: 0; }
+#player_quick_inventory .player_inventory_slot:before { display: block; }
+
+/* The backpack is a six-column game inventory with an equipment shelf. */
+#inventory_menu {
+    box-sizing: border-box;
+    width: min(428px, calc(100vw - 32px));
+    max-width: 428px;
+    max-height: calc(100vh - 36px);
+    height: auto;
+    left: auto;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 20px;
+    overflow-y: auto;
+}
+#inventory_menu > .menu_main_header { text-align: left; padding: 0 42px 14px 0; margin: 0 0 16px; }
+#player_equipment { box-sizing: border-box; width: 100%; text-align: left; padding: 12px; background: #131f29; border: 3px solid #0b141c; border-radius: 7px; margin: 0 0 16px; }
+#player_equipment .menu_main_header { font-size: 15px; border: 0; padding: 0; margin: 0 0 8px; text-align: left; color: #d6dfdb; }
+#player_equipment .inventory_slot { width: 42px; height: 42px; margin: 0 6px 0 0; }
+#player_inventory { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 7px; max-width: 100%; margin: 12px auto; }
+#player_inventory .inventory_slot { box-sizing: border-box; width: 100%; height: auto; aspect-ratio: 1; min-height: 32px; margin: 0; }
+#inventory_menu .player_gold_count_container { margin-top: 16px; border-top: 3px solid #101922; padding-top: 12px; text-align: right; }
+#inventory_menu .player_gold_count_container label, #inventory_menu .player_gold_count_value { font: 20px var(--game-font); color: #f5cd67; }
+
+/* A recipe collection, rather than a long spreadsheet of tiny item names. */
+#blueprint_menu {
+    box-sizing: border-box;
+    width: min(820px, calc(100vw - 40px));
+    height: min(550px, calc(100vh - 40px));
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+}
+#blueprint_main_container { box-sizing: border-box; width: calc(100% - 250px); height: calc(100% - 62px); float: left; position: relative; padding-bottom: 48px; }
+#product_main_container { box-sizing: border-box; width: 230px; height: calc(100% - 62px); margin: 0 0 0 18px; padding: 14px; border: 3px solid #0b141c; border-radius: 8px; background: #131f29; overflow-y: auto; }
+#blueprint_menu .construction_tabs { display: flex; flex-wrap: wrap; gap: 5px; height: auto; padding-bottom: 10px; border: 0; }
+#blueprint_menu .construction_tab { box-sizing: border-box; width: 45px; height: 42px; padding: 6px; margin: 0; border: 3px solid #0b141c; background: #2d3d49; border-radius: 6px; box-shadow: inset 0 2px 0 #ffffff24, inset 0 -3px 0 #0003; }
+#blueprint_menu .construction_tab img { width: 25px; height: 25px; opacity: .85; }
+#blueprint_menu .construction_tab.active { border-color: #cfaa66; background: #59462d; }
+#blueprint_menu .construction_tab.active img { opacity: 1; }
+#blueprint_menu .construction_category { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-content: start; gap: 8px; height: calc(100% - 57px); margin: 0; padding: 3px; overflow-y: auto; }
+#blueprint_menu .template_row { box-sizing: border-box; width: 100%; height: 102px; flex-direction: column; justify-content: center; gap: 7px; padding: 6px 3px; margin: 0; border: 3px solid #0b141c; border-radius: 7px; background: #293742; box-shadow: inset 0 2px 0 #ffffff20, inset 0 -4px 0 #0003; cursor: pointer; }
+#blueprint_menu .template_row:hover { background: #3a4e5c; }
+#blueprint_menu .template_row.active { background: #53432e; border-color: var(--gold); }
+#blueprint_menu .template_row img { width: 42px; height: 42px; padding: 0; margin: 0; image-rendering: pixelated; }
+#blueprint_menu .template_name { font: 12px var(--body-font) !important; font-weight: 700 !important; color: #fff2d4; text-align: center; line-height: 1.15; text-shadow: 0 1px #0b141c; }
+#blueprint_menu .template_info { width: 100%; }
+#blueprint_menu .blueprint_search_container { box-sizing: border-box; position: absolute; left: 0; bottom: 0; width: 100%; height: 40px; border: 3px solid #0b141c; border-radius: 6px; background: #101c26; margin: 0; }
+#blueprint_menu .blueprint_search_input { width: 100%; height: 100%; border: 0; border-radius: 3px; background: transparent; padding: 6px 10px 6px 34px; font: 14px var(--body-font); }
+#blueprint_menu .blueprint_search_input::placeholder { font-family: var(--body-font); }
+#blueprint_menu .search_empty_state { grid-column: 1 / -1; color: #e1e5df; font-size: 14px; }
+#blueprint_menu .product_container { margin: 0; }
+#blueprint_menu .blueprint_image { display: inline-block; box-sizing: border-box; width: 94px; height: 94px; padding: 14px; border: 3px solid #0b141c; border-radius: 8px; background: #2d3c46; image-rendering: pixelated; }
+#blueprint_menu .product_container .blueprint_name { display: block; color: #ffedc2; font: 24px var(--game-font); text-shadow: 0 2px #0b141c; margin-top: 10px; }
+#blueprint_menu .blueprint_description { font-size: 13px !important; line-height: 1.5; color: #d6dedd; }
+#product_main_container .inventory_header { font-size: 17px; border-bottom: 2px solid #0b141c; color: #ffedc2; margin-top: 18px; padding-bottom: 8px; }
+#blueprint_menu .requirement_row { min-height: 26px; height: auto; align-items: center; }
+#blueprint_menu .requirement_name { color: #f0ead9; width: auto; flex: 1; font-size: 12px; margin-left: 7px; }
+#blueprint_menu .requirement_supply { white-space: nowrap; margin-left: 6px; font: 14px var(--game-font); color: #c8df93; }
+#blueprint_menu .requirement_supply.unmet { color: #ffb1a1; }
+#blueprint_menu .crafting_options { display: flex; gap: 6px; align-items: stretch; margin-top: 16px; }
+#blueprint_menu .craft_count { width: 54px; min-width: 0; height: 44px; margin: 0; padding: 6px; font-size: 15px; }
+#blueprint_menu .craft_btn { box-sizing: border-box; flex: 1; height: 44px; margin: 0; padding: 8px; font-size: 20px; }
+
+.game_tooltip { font-family: var(--body-font); background: #0b141c; border: 2px solid #b89b64; border-radius: 5px; color: #eee6d6; }
+.chat_tab { font: 14px var(--game-font); padding: 5px 10px; border: 2px solid #0b141c; border-radius: 5px 5px 0 0; background: #24343f; }
+.chat_tab.selected { background: #58462d; color: #ffe5a4; }
+.chat_history { font: 13px/1.5 var(--body-font); }
+#chat_input_container { background: #121e28ed; border: 2px solid #344b5c; border-radius: 5px; }
+.disconnected_msg { font: 18px var(--game-font); padding: 12px 18px; background: #9b6237; border: 3px solid #392b24; border-radius: 8px; color: #fff0cc; }
+.error_message, .missing_requirement { color: #ffc1ae; }
+.middle_container { background: #1c2630f2; border: 4px solid #080f15; border-radius: 12px; box-shadow: inset 0 3px 0 #ffffff30, inset 0 -5px 0 #0003, 0 6px 0 #0007; }
+.default_play_btn { background-color: #8d7136 !important; }
+#home_footer a { font: 13px var(--body-font); color: #e0d5ae; }
+
+@media (max-width: 1000px) {
+    #player_quick_inventory .inventory_slot { flex-basis: 36px; width: 36px; height: 36px; }
+    #player_stats { bottom: 105px; }
+}
+@media (max-width: 640px), (max-height: 450px) {
+    /* Override legacy !important mobile fullscreen panels explicitly. */
+    #blueprint_menu.modal_menu { left: 50% !important; top: 50% !important; width: calc(100vw - 24px) !important; height: calc(100vh - 24px) !important; padding: 12px; }
+    #blueprint_menu .menu_main_header { font-size: 21px; padding-bottom: 8px; margin-bottom: 10px; }
+    #blueprint_main_container { width: calc(100% - 178px); height: calc(100% - 46px); padding-bottom: 43px; }
+    #product_main_container { width: 168px; height: calc(100% - 46px); margin-left: 8px; padding: 9px; }
+    #blueprint_menu .construction_tabs { gap: 4px; padding-bottom: 7px; }
+    #blueprint_menu .construction_tab { width: 32px; height: 32px; padding: 3px; }
+    #blueprint_menu .construction_tab img { width: 20px; height: 20px; }
+    #blueprint_menu .construction_category { grid-template-columns: repeat(4, minmax(0, 1fr)); height: calc(100% - 40px); gap: 5px; }
+    #blueprint_menu .template_row { height: 84px; }
+    #blueprint_menu .template_row img { width: 32px; height: 32px; }
+    #blueprint_menu .template_name { font-size: 11px !important; }
+    #blueprint_menu .blueprint_image { display: none; }
+    #blueprint_menu .product_container .blueprint_name { font-size: 21px; margin: 0 0 7px; }
+    #product_main_container .inventory_header { margin-top: 10px; }
+    #inventory_menu.modal_menu { left: 50% !important; right: auto; top: 50% !important; transform: translate(-50%, -50%); width: min(428px, calc(100vw - 24px)) !important; height: auto !important; max-height: calc(100vh - 24px); padding: 16px; }
+    #player_quick_inventory_menu { width: auto; left: 50%; margin-left: 0; bottom: 8px; transform: translateX(-50%); }
+    #player_quick_inventory { gap: 4px; padding: 6px; }
+    #player_quick_inventory .inventory_slot { flex-basis: 30px; width: 30px; height: 30px; }
+    #player_stats { top: 65px; bottom: auto; left: 10px; padding: 6px; }
+    #player_stats .stat_container { width: 112px; height: 19px; }
+    #player_stats .bar_container { width: 78px; height: 10px; }
+    #hud_action_container { top: 8px; left: 10px; }
+    .hud_btn { width: 33px; height: 33px; padding: 5px; margin-right: 4px; }
+    .hud_btn img { width: 19px; height: 19px; }
+    #time_label { font-size: 12px; width: 140px; padding: 6px; right: 10px; top: 8px; }
+}
+@media (max-width: 480px) {
+    #blueprint_main_container { width: calc(100% - 148px); }
+    #product_main_container { width: 140px; padding: 7px; }
+    #blueprint_menu .construction_tabs { gap: 3px; }
+    #blueprint_menu .construction_tab { width: 28px; height: 28px; padding: 1px; }
+    #blueprint_menu .construction_category { grid-template-columns: repeat(2, minmax(0, 1fr)); height: calc(100% - 72px); }
+    #blueprint_menu .template_name { font-size: 10px !important; }
+    #blueprint_menu .crafting_options { flex-wrap: wrap; }
+    #blueprint_menu .craft_btn { flex-basis: 100%; }
+    #time_label { top: 54px; }
+}
+
+#player_quick_inventory .inventory_slot[data-index='0']:before { content: '1'; }
+#player_quick_inventory .inventory_slot[data-index='1']:before { content: '2'; }
+#player_quick_inventory .inventory_slot[data-index='2']:before { content: '3'; }
+#player_quick_inventory .inventory_slot[data-index='3']:before { content: '4'; }
+#player_quick_inventory .inventory_slot[data-index='4']:before { content: '5'; }
+#player_quick_inventory .inventory_slot[data-index='5']:before { content: '6'; }
+#player_quick_inventory .inventory_slot[data-index='6']:before { content: '7'; }
+#player_quick_inventory .inventory_slot[data-index='7']:before { content: '8'; }
+@media (prefers-reduced-motion: reduce) {
+    .inventory_slot, .craft_btn, .hud_btn { transition: none; }
+}
+
+#base_hud .resources.stat_container {
+    box-sizing: border-box;
+    top: 16px;
+    right: 232px;
+    width: auto;
+    height: 44px;
+    min-height: 0;
+    padding: 8px 12px;
+    background: #1a2731f2;
+    border: 3px solid #080f15;
+    border-radius: 7px;
+    box-shadow: inset 0 2px 0 #ffffff20, 0 3px 0 #0005;
+}
+#base_hud .resources .resource_count { font: 18px var(--game-font); color: #ffdc7c; }
+#base_hud .resources .resource_icon { vertical-align: middle; }
+@media (max-width: 640px), (max-height: 450px) {
+    #base_hud .resources.stat_container { top: 8px; right: 174px; height: 36px; padding: 4px 8px; }
+}
+@media (max-width: 480px) {
+    #base_hud .resources.stat_container { top: 54px; }
+}
