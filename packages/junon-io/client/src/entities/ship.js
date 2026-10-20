@@ -32,7 +32,9 @@ class Ship extends BaseEntity {
     this.groups = ["pickups"]
     this.tileGroups = ["buildings"]
 
-    this.createSpriteLayersFor(this.sprite, this.buildingGroups)
+    this.environmentLayer = this.createEnvironmentSpriteLayersFor(this.sprite,
+      this.buildingGroups.filter((group) => group !== "units"), "ShipEnvironment")
+    this.createSpriteLayersFor(this.sprite, ["units"])
     this.createSpriteLayersFor(this.sprite, this.groups)
     this.createColliderSprite()
 

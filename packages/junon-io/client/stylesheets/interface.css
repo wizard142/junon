@@ -27,9 +27,6 @@ select { max-width: 100%; cursor: pointer; }
     box-sizing: border-box; width: min(960px, calc(100% - 440px)); min-width: 480px;
     padding: 24px; margin: 0 auto 24px; background: #17232df5;
 }
-.station_home_intro { text-align: left; padding-bottom: 18px; border-bottom: 3px solid var(--shell-line); }
-.station_home_eyebrow { font: 25px var(--game-font); color: var(--cream); }
-.station_home_intro p { font: 14px/1.6 var(--body-font); color: var(--shell-muted); margin: 8px 0 0; }
 .home_user_action_container { padding: 18px 0; }
 .home_action_row { display: flex; align-items: stretch; gap: 10px; margin: 0 0 14px; }
 .home_action_row .btn { margin: 0; float: none; width: auto; min-width: 0; white-space: nowrap; }
@@ -163,7 +160,6 @@ select { max-width: 100%; cursor: pointer; }
 }
 @media (max-width: 640px), (max-height: 450px) {
     #welcome_container:not(.in_game) .middle_container { padding: 16px; }
-    .station_home_eyebrow { font-size: 22px; }
     .home_action_row { gap: 6px; flex-wrap: wrap; }
     .home_action_row .default_play_btn { font-size: 22px; }
     .home_action_row .tutorial_menu_btn { font-size: 17px; }

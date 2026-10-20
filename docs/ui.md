@@ -54,3 +54,26 @@ The colony browser derives its empty state from the currently visible list and
 filtered entries. A scoped MutationObserver tracks list/filter changes without
 changing the existing matchmaker/search protocol. Its own hidden attribute is
 excluded from observation to avoid a mutation loop.
+
+## World colors
+
+`client/src/util/environment_colors.js` grades static world art in WebGL with
+1.42x brightness and a modest saturation increase. The space backdrop uses a
+richer blue (`#16344f`). Sector terrain/platforms/walls,
+structures and ceilings use three grouped passes at their original depth; ship
+structures have their own pass. This avoids a filter per tile.
+
+Players, mobs, units, pickups and projectiles remain outside these containers.
+The original light map and fog-of-war compose afterward, so dark/hidden areas,
+light sources, damage tints, ownership colors and tile transparency retain their
+meaning. No creature art/behavior, server lighting or save data changes. Canvas
+fallback retains the original rendering because it does not support GPU filters.
+
+The home intro heading and paragraph have been removed. The play buttons and
+colony browser remain the primary entry controls.
+
+`test/e2e/world_colors.spec.js` builds a disposable colony fixture, compares
+matched before/after screenshots, checks brightness, and verifies that movable
+layers and fog remain outside the grade. Run alongside building/mining scenarios
+when changing render grouping or grading. Screenshots honor the same
+`JUNON_UI_SCREENSHOT_DIR` option as the interface suite.

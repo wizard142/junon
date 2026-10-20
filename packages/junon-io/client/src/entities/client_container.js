@@ -1,4 +1,5 @@
 const ExceptionReporter = require("./../util/exception_reporter")
+const { createEnvironmentLayer } = require("../util/environment_colors")
 const Helper = require("./../../../common/helper")
 
 const ClientContainer = () => {
@@ -295,6 +296,13 @@ ClientContainer.prototype = {
         }
       }
     }
+  },
+
+  createEnvironmentSpriteLayersFor(parent, groups, name) {
+    const layer = createEnvironmentLayer(this.game, name)
+    parent.addChild(layer)
+    this.createSpriteLayersFor(layer, groups)
+    return layer
   },
 
   createSpriteLayersFor(parent, groups) {
