@@ -76,8 +76,8 @@ test('new colony, storage, game mode and pause panels retain their actions', asy
   await page.setViewportSize({ width: 1440, height: 900 })
   await page.locator('#storage_menu .cancel_btn').click()
   await expect(page.locator('#storage_menu')).toBeHidden()
-  // This normal menu is gated on a database creation date; the offline harness
-  // opens it explicitly, then exercises real selection and close controls.
+  // The join helper dismisses the automatic chooser for gameplay scenarios;
+  // reopen it here to check the layout and selection styling.
   await page.evaluate(() => window.game.selectDifficultyMenu.open())
   await page.locator('.game_mode[data-mode="hardcore"]').click()
   await expect(page.locator('.game_mode[data-mode="hardcore"]')).toHaveClass(/selected/)

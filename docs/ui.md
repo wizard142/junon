@@ -1,6 +1,6 @@
 # Survival interface
 
-The DOM interface keeps the original game sprites and event hooks. Its visual
+The DOM interface keeps the original game event hooks. Its visual
 layer is `packages/junon-io/client/stylesheets/station.css`, loaded after legacy
 and mobile styles by Gulp. Never edit generated bundles.
 
@@ -72,3 +72,20 @@ browser remain the primary entry controls.
 `test/e2e/world_colors.spec.js` creates a colony using non-default dimensions,
 checks the dark backdrop and unfiltered world layers, and confirms that the intro
 stays removed. Screenshots honor `JUNON_UI_SCREENSHOT_DIR`.
+
+## Creature and item art
+
+`art/sprite-refresh/` contains reviewed source atlases, prompt direction, the
+175-texture manifest and original geometry. The final overhead weapon sheet
+supersedes the weapon cells in the base item sheets: muted industrial receivers,
+vents and panels, with top surfaces visible and no hanging side-view grips.
+`node scripts/refresh-sprites.cjs` extracts these into named source PNGs and both
+legacy packed atlases, respecting trimmed-frame coordinates. The world terrain,
+colony structures, lighting and dark palette remain unchanged.
+
+The three mode cards (Sandbox, Survival, Hardcore) open automatically for a new
+owner-controlled non-tutorial colony without an assigned mode. A missing/zero
+creation timestamp no longer hides them. Known saves from before the mode
+system keep their legacy behavior. `game_modes.spec.js` checks every real choice;
+`sprite_runtime.spec.js` checks equipping/turning a weapon and rendering real
+spawned mobs through normal sandbox commands.

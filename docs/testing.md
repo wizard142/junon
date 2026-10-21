@@ -115,10 +115,10 @@ server really applied the change instead of the client having predicted it.
   from `support/screen.js`. They also all fail silently while a modal menu is
   open, because `Game#isModalMenuOpen()` makes `triggerEntityMouseEvents()` bail
   out.
-- The harness runs without MySQL, so `sector.createdAt` stays 0 and the
-  "Choose a Game Mode" menu never opens by itself
-  (`SelectDifficultyMenu#showGameMode` gates on it). `selectGameMode()` opens it
-  and then drives it normally.
+- New owner-controlled colonies now offer Sandbox / Survival / Hardcore even
+  when `sector.createdAt` is 0. The join helper dismisses the picker for ordinary
+  gameplay scenarios without assigning a mode. Pass `keepModePicker: true` to
+  exercise the auto-open path; `game_modes.spec.js` applies all three choices.
 - A colony with no game mode picked is not peaceful. Most chat commands only run
   in a peaceful colony (`BaseCommand#canExecute`), and in a peaceful one the
   owner's crafts succeed without the ingredients

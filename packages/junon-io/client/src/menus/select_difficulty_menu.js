@@ -1,11 +1,5 @@
 const SocketUtil = require("./../util/socket_util")
 const BaseMenu = require("./base_menu")
-const Mobs = require("./../entities/mobs/index")
-const Ores = require("./../entities/ores/index")
-const Item = require("./../entities/item")
-const Buildings = require("./../entities/buildings/index")
-const Equipments = require("./../entities/equipments/index")
-const Helper = require("./../../../common/helper")
 
 class SelectDifficultyMenu extends BaseMenu {
   onMenuConstructed() {
@@ -38,12 +32,15 @@ class SelectDifficultyMenu extends BaseMenu {
 
   showGameMode(gameMode) {
     if (gameMode) return // gameMode already exist
+    if (this.game.sector.isTutorial()) return
 
     if (!this.game.player) return
     if (!this.game.player.isSectorOwner()) return
 
     let peacefulHardcoreModeDate = (new Date(2020, 7, 19)).getTime() / 1000
-    if (this.game.sector.createdAt < peacefulHardcoreModeDate) return
+    // Unsaved local worlds have no creation timestamp. Only known legacy
+    // saves should bypass the three-mode choice.
+    if (this.game.sector.createdAt > 0 && this.game.sector.createdAt < peacefulHardcoreModeDate) return
 
     let selectedGameMode = this.el.querySelector(".game_mode.selected")
     if (selectedGameMode) {

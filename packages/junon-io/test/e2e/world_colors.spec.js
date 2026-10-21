@@ -10,7 +10,7 @@ function output(name, testInfo) {
 
 test('custom-sized colony creates and retains original dark world rendering', async ({ page }, testInfo) => {
   await page.context().addCookies([{ name: 'tutorial_done', value: 'true', url: 'http://localhost:8001' }])
-  await page.goto('/')
+  await page.goto('/?stress=1')
   await expect(page.locator('.station_home_intro')).toHaveCount(0)
   await page.click('.default_play_btn')
   await page.selectOption('.row_count_select', '64')
@@ -30,6 +30,7 @@ test('custom-sized colony creates and retains original dark world rendering', as
     }
   })
   expect(world).toEqual({ rows: 64, cols: 96, tint: 0x112944, originalLayers: true, fog: true })
-  await page.click('#welcome_menu .cancel_btn')
+  if (await page.locator('#select_difficulty_menu').isVisible()) await page.click('#select_difficulty_menu .cancel_btn')
+  if (await page.locator('#welcome_menu').isVisible()) await page.click('#welcome_menu .cancel_btn')
   await page.screenshot({ path: output('world-dark', testInfo) })
 })
