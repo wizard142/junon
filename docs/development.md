@@ -16,9 +16,21 @@ root commands use the same runtime.
 From the repository root:
 
 ```sh
-npm install
+npm ci --allow-git=all
 npm run db:setup
 ```
+
+Create a repository-root `.env` with `NODE_ENV=development`,
+`JUNON_DB_USER` and `JUNON_DB_PASS` matching a local database account. Both the
+servers and the Sequelize CLI load this file; exported shell variables take
+precedence. Run `npm run db:setup` once, then keep `npm run server` and
+`npm run client` running in separate terminals and open http://localhost:8001.
+
+If colony creation reports an error and the server logs `SequelizeAccessDeniedError`,
+repair the MariaDB account/password to match `.env`. Check both `localhost` and
+`127.0.0.1` account entries on MariaDB; grant access only to `junon_development.*`.
+Restart the server after changing `.env`. A running server alone does not prove
+that database authentication or migrations succeeded.
 
 Database setup uses Sequelize configuration in `packages/junon-common/db/`.
 The existing development default assumes a local MySQL root user; use the

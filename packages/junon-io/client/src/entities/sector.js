@@ -1154,8 +1154,9 @@ class Sector {
     this.backgroundSprite.name = "Backgrounds" 
     this.sprite.addChild(this.backgroundSprite)
 
-    this.environmentGroundLayer = this.createEnvironmentSpriteLayersFor(this.sprite,
-      this.terrainGroups.concat(this.buildingGroups, this.wallGroups), "EnvironmentGround")
+    this.createSpriteLayersFor(this.sprite, this.terrainGroups)
+    this.createSpriteLayersFor(this.sprite, this.buildingGroups)
+    this.createSpriteLayersFor(this.sprite, this.wallGroups)
 
     this.hangarFadeBlackSprite = this.getHangarFadeBlackSprite()
     this.sprite.addChild(this.hangarFadeBlackSprite)
@@ -1175,16 +1176,14 @@ class Sector {
     this.highGroundEffectsContainer.name = "HighGroundEffects"
     this.sprite.addChild(this.highGroundEffectsContainer)
 
-    this.environmentStructureLayer = this.createEnvironmentSpriteLayersFor(this.sprite,
-      this.structureGroups, "EnvironmentStructures")
+    this.createSpriteLayersFor(this.sprite, this.structureGroups)
     this.createSpriteLayersFor(this.sprite, this.clientDebugGroups)
 
     this.createSpriteLayersFor(this.sprite, this.movableGroups)
     this.createSpriteLayersFor(this.sprite, this.roomGroups)
     this.createSpriteLayersFor(this.sprite, this.homeAreaGroups)
 
-    this.environmentCeilingLayer = this.createEnvironmentSpriteLayersFor(this.sprite,
-      this.ceilingGroups, "EnvironmentCeilings")
+    this.createSpriteLayersFor(this.sprite, this.ceilingGroups)
     this.createSpriteLayersFor(this.sprite, this.networkGroups)
 
     this.invalidAreaSprite = this.getInvalidAreaSprite()
@@ -1394,7 +1393,9 @@ class Sector {
   getGameBoundsSprite() {
     const sprite = new PIXI.Sprite(PIXI.utils.TextureCache["square_white.png"])
     sprite.name = "GameBounds"
-    sprite.tint = 0x16344f
+    // sprite.tint = 0x4f495f // light purple
+    sprite.tint = 0x00ff00 // bright green for debuggability
+    sprite.tint = 0x112944
     sprite.width  = this.getSectorWidth()
     sprite.height = this.getSectorHeight()
     return sprite

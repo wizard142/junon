@@ -1,3 +1,6 @@
+> Superseded on 2026-10-21: the user requested the original dark rendering.
+> See `dark-world-local-creation.md`; the home intro remains removed.
+
 # Outcome
 Remove the home intro heading/paragraph. Brighten environment and colony colors
 while keeping approved UI colors, creature art, animation, simulation, lighting

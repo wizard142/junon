@@ -1769,13 +1769,11 @@ class Main {
       data["stress"] = true
     }
 
-    if (this.getUrlParam().get("row")) {
-      data["rowCount"] = this.getUrlParam().get("row")
-    }
-
-    if (this.getUrlParam().get("col")) {
-      data["colCount"] = this.getUrlParam().get("col")
-    }
+    // Send numeric dimensions: the matchmaker validates against numeric sizes.
+    // URL overrides remain supported, otherwise use the visible setup controls.
+    const params = this.getUrlParam()
+    data.rowCount = Number(params.get("row") || document.querySelector(".row_count_select").value)
+    data.colCount = Number(params.get("col") || document.querySelector(".col_count_select").value)
 
     this.sendToMatchmaker({ event: "NewColony", data: data })
   }

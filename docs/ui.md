@@ -55,25 +55,20 @@ filtered entries. A scoped MutationObserver tracks list/filter changes without
 changing the existing matchmaker/search protocol. Its own hidden attribute is
 excluded from observation to avoid a mutation loop.
 
+The new-colony row/column controls send numeric dimensions to the matchmaker.
+Existing `?row=` / `?col=` overrides still take precedence and are converted to
+numbers before the server applies its allowed-size validation.
+
 ## World colors
 
-`client/src/util/environment_colors.js` grades static world art in WebGL with
-1.42x brightness and a modest saturation increase. The space backdrop uses a
-richer blue (`#16344f`). Sector terrain/platforms/walls,
-structures and ceilings use three grouped passes at their original depth; ship
-structures have their own pass. This avoids a filter per tile.
+The world uses the original dark Junon rendering and `#112944` space backdrop.
+The previous environment brightness/saturation filters and their wrapper layers
+have been removed. Terrain, structures, ships and creatures use their original
+render ordering, lighting and fog.
 
-Players, mobs, units, pickups and projectiles remain outside these containers.
-The original light map and fog-of-war compose afterward, so dark/hidden areas,
-light sources, damage tints, ownership colors and tile transparency retain their
-meaning. No creature art/behavior, server lighting or save data changes. Canvas
-fallback retains the original rendering because it does not support GPU filters.
+The home intro heading and paragraph remain removed. The play buttons and colony
+browser remain the primary entry controls.
 
-The home intro heading and paragraph have been removed. The play buttons and
-colony browser remain the primary entry controls.
-
-`test/e2e/world_colors.spec.js` builds a disposable colony fixture, compares
-matched before/after screenshots, checks brightness, and verifies that movable
-layers and fog remain outside the grade. Run alongside building/mining scenarios
-when changing render grouping or grading. Screenshots honor the same
-`JUNON_UI_SCREENSHOT_DIR` option as the interface suite.
+`test/e2e/world_colors.spec.js` creates a colony using non-default dimensions,
+checks the dark backdrop and unfiltered world layers, and confirms that the intro
+stays removed. Screenshots honor `JUNON_UI_SCREENSHOT_DIR`.
