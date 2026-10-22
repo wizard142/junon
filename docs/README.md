@@ -9,6 +9,7 @@ with the code.
 - [Architecture](../ARCHITECTURE.md): components, responsibilities, contracts,
   and dependency guidance.
 - [Development](development.md): prerequisites, setup, and run/build commands.
+- [Station interface](ui.md): theme sources, design and visual checks.
 - [Testing](testing.md): test layout, focused commands, and validation strategy.
 - [Production deployment](deployment.md): automatic production deployment and
   its required GitHub configuration.

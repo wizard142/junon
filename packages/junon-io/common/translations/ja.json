@@ -1,4 +1,14 @@
 {
+  "No colonies here yet": "コロニーはまだありません",
+  "Try another filter or start a new colony.": "別のフィルターを試すか、新しいコロニーを作成しましょう。",
+
+  "Close": "閉じる",
+  "Search": "検索",
+
+  "Build. Explore. Survive.": "建設。探索。サバイバル。",
+  "Search colonies": "コロニーを検索",
+
+  "Search recipes": "レシピを検索",
     "New Game": "新しい基地を作成",
     "Visit Colony": "基地を訪問",
     "Tutorial": "チュートリアル",

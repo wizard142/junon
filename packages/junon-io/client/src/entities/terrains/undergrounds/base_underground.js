@@ -2,6 +2,7 @@ const BaseTerrain = require("./../base_terrain")
 const Constants = require("./../../../../../common/constants.json")
 const ClientHelper = require("./../../../util/client_helper")
 const Trail = require("../../particles/trail")
+const { getLiquidSurfaceLayout } = require("../../../util/liquid_surface")
 
 class BaseUnderground extends BaseTerrain {
   getGroup() {
@@ -139,22 +140,44 @@ class BaseUnderground extends BaseTerrain {
     }
   }
 
-  getSprite() {
-    let sprite = super.getSprite()
+  getSurfaceTexture() {
+    const surface = this.getSpritePath().replace('.png', '_surface.png')
+    return PIXI.utils.TextureCache[surface] || PIXI.utils.TextureCache[this.getSpritePath()]
+  }
 
-    // we want it to be a little larger so that
-    // edges above ground would be more visible
-    let gameRowCount = this.sector.rowCount
-    let gameColCount = this.sector.colCount
-
-    let isEdgeOfMap =  this.data.row === 0 || this.data.row === gameRowCount - 1 ||
-                       this.data.col === 0 || this.data.col === gameColCount - 1
-
-    if (!isEdgeOfMap) {
-      sprite.width = 48
-      sprite.height = 48
+  alignSurface(sprite) {
+    const source = this.getSurfaceTexture()
+    const layout = getLiquidSurfaceLayout(this.data.x, this.data.y,
+      this.sector.rowCount, this.sector.colCount)
+    if (source.width >= 128) {
+      const key = this.getSpritePath() + ':surface:' + [layout.frameX, layout.frameY, layout.width].join(':')
+      // Shared crop textures retain normal sprite batching and chunk caching.
+      let texture = PIXI.utils.TextureCache[key]
+      if (!texture) {
+        texture = new PIXI.Texture(source.baseTexture,
+          new PIXI.Rectangle(layout.frameX, layout.frameY, layout.width, layout.height))
+        PIXI.Texture.addToCache(texture, key)
+      }
+      sprite.texture = texture
+    } else {
+      sprite.texture = source
     }
+    sprite.width = layout.width
+    sprite.height = layout.height
+    sprite.rotation = 0
+  }
 
+  // Liquids have no directional edge graphic. Neighbor-based tile rotation
+  // would rotate the texture field independently and expose tile boundaries.
+  layoutTile(tiles, sprite = this.getTileSprite()) {
+    this.alignSurface(sprite)
+  }
+
+  getSprite() {
+    const sprite = new PIXI.Sprite(this.getSurfaceTexture())
+    sprite.name = this.getTypeName()
+    sprite.anchor.set(0.5)
+    this.alignSurface(sprite)
     return sprite
   }
 

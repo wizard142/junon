@@ -130,8 +130,8 @@ class BlueprintMenu extends CraftMenu {
 
   buildSearchInput() {
     let search = "<div class='blueprint_search_container'>" + 
-                    "<img src='/assets/images/search_icon.png'>" +
-                    "<input type='text' class='blueprint_search_input'></text>" +
+                    "<img src='/assets/images/search_icon.png' alt=''>" +
+                    "<input type='text' class='blueprint_search_input' aria-label='" + i18n.t('Search recipes') + "' placeholder='" + i18n.t('Search recipes') + "' autocomplete='off'>" +
                  "</div>"
     this.el.querySelector("#blueprint_main_container").innerHTML += search
   }

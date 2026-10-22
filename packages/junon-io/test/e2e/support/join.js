@@ -1,14 +1,14 @@
 // Drives the real main-menu UI through the real matchmaker -> game-server
 // handshake (client/src/main.js: .default_play_btn -> .new_colony_menu_btn ->
 // requestNewColonyFromMatchmaker()), the same path a human player takes.
-async function createNewColonyAndJoin(page) {
+async function createNewColonyAndJoin(page, options = {}) {
   // client checks Cookies.get('tutorial_done') and otherwise shows a
   // "play tutorial?" confirm dialog before creating the colony
   await page.context().addCookies([
     { name: 'tutorial_done', value: 'true', url: 'http://localhost:8001' }
   ])
 
-  await page.goto('/')
+  await page.goto(options.path || '/')
   await page.click('.default_play_btn')
   await page.click('.new_colony_menu_btn')
 
@@ -16,13 +16,14 @@ async function createNewColonyAndJoin(page) {
   // handled, i.e. once the real join handshake has fully completed
   await page.waitForFunction(() => !!window.player, { timeout: 30_000 })
 
-  // a colony creator gets a "Welcome" modal (client/src/menus/welcome_menu.js)
-  // that sits front-and-center over the game. It's not just visual: while
-  // #welcome_container is showing, Game#isInGameMenuOpen() makes
-  // globalMouseMoveHandler() (client/src/entities/input_controller.js) bail
-  // out immediately, so mouse-driven facing/aiming silently no-ops for as
-  // long as this stays open.
-  await page.click('#welcome_menu .cancel_btn')
+  // Local worlds now get the real mode picker automatically. Tests which
+  // exercise the picker keep it open; other gameplay scenarios dismiss it
+  // without assigning a mode, preserving their existing gameplay assumptions.
+  if (options.keepModePicker) return
+  const modePicker = page.locator('#select_difficulty_menu')
+  if (await modePicker.isVisible()) await modePicker.locator('.cancel_btn').click()
+  const welcome = page.locator('#welcome_menu')
+  if (await welcome.isVisible()) await welcome.locator('.cancel_btn').click()
 }
 
 // Picks the colony's game mode through the real "Choose a Game Mode" menu
@@ -36,13 +37,8 @@ async function createNewColonyAndJoin(page) {
 // (server/entities/inventory.js#isSandboxMode). So a test that cares either way
 // has to say so.
 //
-// The menu is normally opened for the owner right after joining, but
-// SelectDifficultyMenu#showGameMode gates that on sector.createdAt, which is
-// only populated from the sector's database row
-// (server/entities/sector.js) - the harness runs without MySQL, so createdAt
-// stays 0 and the menu never opens by itself. It is opened here directly and
-// then driven exactly as a player would: pick a mode, press accept, wait for
-// the server's SectorUpdated to come back.
+// Reopen the chooser for scenarios that explicitly change mode after joining.
+// The ordinary new-world auto-open path is covered by game_modes.spec.js.
 async function selectGameMode(page, gameMode) {
   await page.evaluate(() => window.game.selectDifficultyMenu.open())
   await page.click(`#select_difficulty_menu .game_mode[data-mode='${gameMode}']`)

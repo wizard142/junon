@@ -1,3 +1,7 @@
+// The Sequelize CLI runs separately from the servers, so load the same local
+// configuration here too. Existing shell variables still take precedence.
+require('dotenv').config({ path: require('path').resolve(__dirname, '../../../.env'), quiet: true })
+
 module.exports = {
   // Jest sets NODE_ENV=test by default when it isn't already set, and
   // db/sequelize.js does `config[env]` unconditionally - without a "test"

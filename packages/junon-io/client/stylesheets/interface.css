@@ -1,0 +1,304 @@
+/* Complete browser shell; shares the approved palette and silhouettes. */
+:root {
+    --shell-surface: #1c2630;
+    --shell-inset: #131f29;
+    --shell-raised: #293742;
+    --shell-line: #0b141c;
+    --shell-muted: #a9b7bc;
+    --shell-shadow: inset 0 3px 0 #3a4852, inset 0 -5px 0 #101922, 0 6px 0 #0007;
+}
+button { -webkit-tap-highlight-color: transparent; }
+button:disabled, [aria-disabled='true'] { cursor: not-allowed; }
+input[type='range'], input[type='checkbox'] { accent-color: var(--gold); }
+select { max-width: 100%; cursor: pointer; }
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-track { background: #101922; }
+::-webkit-scrollbar-thumb { background: #475b67; border: 2px solid #101922; border-radius: 6px; }
+
+/* A recognisable title and one clear play area, framed by the live world. */
+#welcome_container:not(.in_game) #game_caption {
+    position: relative; inset: auto; width: auto; margin: 32px auto 24px;
+    line-height: 1; text-align: center; text-shadow: none;
+}
+.junon_wordmark { font: 74px/.95 var(--game-font); letter-spacing: 3px; color: #f3e9ce; text-shadow: 0 5px #0b141c, 3px 0 #0b141c, -3px 0 #0b141c; }
+.junon_wordmark_suffix { color: #c99c54; font-size: .55em; letter-spacing: 0; }
+.junon_tagline { margin-top: 15px; color: #c4cfcf; font: 14px var(--body-font); letter-spacing: 2px; }
+#welcome_container:not(.in_game) .middle_container {
+    box-sizing: border-box; width: min(960px, calc(100% - 440px)); min-width: 480px;
+    padding: 24px; margin: 0 auto 24px; background: #17232df5;
+}
+.home_user_action_container { padding: 18px 0; }
+.home_action_row { display: flex; align-items: stretch; gap: 10px; margin: 0 0 14px; }
+.home_action_row .btn { margin: 0; float: none; width: auto; min-width: 0; white-space: nowrap; }
+.home_action_row .default_play_btn { flex: 1; font-size: 24px; padding: 16px; }
+.home_action_row .tutorial_menu_btn { flex: 1; font-size: 20px; }
+.home_action_row .settings_menu_btn { flex: 0 0 52px; padding: 12px; }
+.home_action_row .settings_menu_btn img { width: 24px; height: 24px; }
+#language_selector { display: inline-flex; align-items: center; gap: 8px; }
+#language_select { font-size: 12px; padding: 5px 8px; }
+.home_user_action_container .discord_link { display: inline-block; margin: 0 0 0 16px; vertical-align: middle; }
+.home_user_action_container .open_ban_list_btn { float: right; font-size: 13px; padding: 8px 10px; margin: 0; }
+#welcome_container:not(.in_game) .left_sidebar { box-sizing: border-box; width: 190px; top: 24px; left: 16px; padding: 14px; border: 3px solid var(--shell-line); border-radius: 9px; background: #17232df2 !important; }
+#changelogs { max-height: 380px; overflow: auto; font: 12px/1.6 var(--body-font); color: var(--shell-muted); }
+#changelogs .date { color: #d5b578; font: 15px var(--game-font); }
+#home_footer { border: 3px solid var(--shell-line); border-radius: 8px; background: #17232df2 !important; }
+#home_footer a { display: block; line-height: 1.8; }
+#connecting_message { font: 16px var(--game-font); color: var(--cream); }
+
+/* Browse existing colonies without losing the primary new-game action. */
+.minigame_list_header { border-radius: 7px 7px 0 0; padding: 10px; background: #101b24; display: flex; gap: 8px; }
+.search_world_input { flex: 1; min-width: 0; width: auto; font-size: 13px; }
+.search_world_btn, #set_username_btn, .confirm_proceed_btn, .confirm_cancel_btn,
+.accept_game_mode_btn, .invite_link_copy_btn, .start_minigame_btn {
+    background: #2d3a44; color: var(--cream); border: 3px solid var(--ink); border-radius: 6px;
+    box-shadow: inset 0 2px #ffffff20, inset 0 -3px #0004; padding: 8px 12px;
+    font: 16px var(--game-font); cursor: pointer;
+}
+.search_world_btn:hover, #set_username_btn:hover { background: #3c4d59; }
+.game_list_container { background: transparent; }
+.game_list_header { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; padding: 10px 0; background: transparent; }
+.colony_filter_tab { box-sizing: border-box; float: none; font: 14px var(--game-font); padding: 7px 10px; margin: 0; border: 2px solid transparent; border-radius: 5px; color: var(--shell-muted); background: #131f29; cursor: pointer; }
+.colony_filter_tab.selected, .colony_filter_tab:hover { color: #f0d39a; background: #4c3e2b; border-color: #9a7a45; }
+.gallery_mode_btn, .list_mode_btn { width: 25px; height: 25px; object-fit: contain; padding: 4px; margin-left: auto; }
+.colony_list { width: 100%; border-collapse: separate; border-spacing: 0 7px; font: 13px var(--body-font); }
+.colony_list th { color: var(--shell-muted); font-size: 12px; padding: 8px; text-align: left; }
+.team_entry_row, .sector_entry_row { color: #e2e7de; background: #25343e; cursor: pointer; }
+.team_entry_row td, .sector_entry_row td { padding: 12px 8px; border-block: 2px solid #0b141c; }
+.team_entry_row td:first-child, .sector_entry_row td:first-child { border-left: 2px solid #0b141c; border-radius: 7px 0 0 7px; }
+.team_entry_row td:last-child, .sector_entry_row td:last-child { border-right: 2px solid #0b141c; border-radius: 0 7px 7px 0; }
+.team_entry_row:hover, .sector_entry_row:hover, .team_entry_row.selected { background: #354955; }
+.team_entry_row .screenshot { border-radius: 5px; border: 2px solid #0b141c; }
+.team_days_alive, .team_member_count { color: #becbc8; font: 13px var(--body-font); }
+.main_game_mode_selector { gap: 10px; }
+.main_game_mode_entry { border: 3px solid #0b141c; border-radius: 8px; background: #25343e; padding: 8px; box-sizing: border-box; }
+.game_mode_thumb img { max-width: 100%; border-radius: 5px; }
+.game_mode_name { color: var(--cream); font: 18px var(--game-font); }
+.minigame_creator, .minigame_player_count { color: var(--shell-muted); font: 12px var(--body-font); }
+
+/* Every navigation state uses the same shell, including pause and settings. */
+.main_menu_navigator { max-width: 680px; margin: 25px auto; padding: 0 20px; box-sizing: border-box; }
+.back_main_menu_btn { float: none; margin: 0 0 12px; padding: 8px 12px; color: var(--cream); background: #293742; border: 3px solid #0b141c; border-radius: 6px; font: 16px var(--game-font); }
+.new_game_container, .settings_container, .game_invite_container, .load_game_settings_container, .minigame_details_container {
+    box-sizing: border-box; max-width: 100%; padding: 24px; border: 4px solid var(--ink);
+    border-radius: 12px; background: var(--shell-surface); box-shadow: var(--shell-shadow);
+    color: #d9e0dc; font: 14px/1.5 var(--body-font);
+}
+.new_game_container { width: 440px; margin: auto; }
+.new_colony_name_input { width: 100%; max-width: 100%; margin-bottom: 18px; }
+.new_game_row_count, .new_game_col_count, .load_game_settings_row { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; gap: 16px; }
+.new_colony_menu_btn { margin-top: 22px !important; background: #946d35; padding: 14px; }
+.settings_container { width: 600px; max-width: 100%; height: min(600px, calc(100vh - 220px)); min-height: 260px; overflow: auto; }
+.sounds_container { padding: 0 0 16px; }
+.volume_slider_container { display: flex; align-items: center; gap: 14px; margin: 12px 0 22px; }
+.volume_slider_container input { flex: 1; width: auto; }
+.volume_value { color: #e7c389; font: 18px var(--game-font); }
+.key_bindings_container { padding: 0; }
+.key_bindings_row { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; margin: 0 0 5px; background: #131f29; border-radius: 5px; }
+.key_binding_label { float: none; font-size: 13px; }
+.key_binding_value { float: none; min-width: 30px; padding: 4px 8px; border: 2px solid #0b141c; border-radius: 4px; background: #34434e; color: #f0d39a; font: 15px var(--game-font); text-align: center; }
+#welcome_container.in_game { background: #080f15d9; opacity: 1; }
+#welcome_container.in_game .main_menu { box-sizing: border-box; width: min(320px, calc(100vw - 36px)); padding: 20px; margin-top: min(20vh, 130px); background: #1c2630; border: 4px solid #080f15; border-radius: 12px; box-shadow: var(--shell-shadow); }
+#welcome_container.in_game .main_menu::before { content: 'JUNON'; display: block; margin: 0 0 20px; color: var(--cream); font: 36px var(--game-font); letter-spacing: 2px; }
+#welcome_container.in_game .main_menu_btn { padding: 14px 10px; margin-bottom: 10px; font-size: 21px; }
+#welcome_container.in_game .main_menu_navigator { margin-top: 16px; }
+
+/* Shared interaction panels: larger item wells and readable descriptions. */
+#storage_menu, #processor_menu, #oxygen_tank_menu, #vending_machine_menu,
+#confirm_menu, #select_difficulty_menu, #welcome_menu, #team_full_menu,
+#rules_menu, #trade_menu, #slave_trade_menu, #hangar_controller_menu {
+    box-sizing: border-box; left: 50%; top: 50%; transform: translate(-50%, -50%);
+    width: min(460px, calc(100vw - 32px)); max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 36px); height: auto; overflow-y: auto; padding: 24px;
+}
+.modal_menu > .menu_main_header { padding-right: 28px; padding-left: 28px; }
+.modal_menu .menu_description, .entity_description, .blurb { color: #bfcdcc; font: 14px/1.65 var(--body-font); }
+#storage_menu #storage_inventory, #vending_machine_menu #storage_inventory,
+.processor_storage { padding: 12px; background: #101c26; border: 3px solid #0b141c; border-radius: 7px; margin: 12px 0 20px; }
+.storage_player_inventory { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; max-width: 100%; margin: 14px 0; }
+.storage_player_inventory .inventory_slot { box-sizing: border-box; width: 100%; height: auto; aspect-ratio: 1; min-height: 30px; margin: 0; }
+#storage_inventory .inventory_slot, .processor_storage .inventory_slot { width: 38px; height: 38px; }
+#storage_menu > .menu_main_header:not(:first-child) { font-size: 18px; margin-top: 24px; }
+.processor_status_message, #crafting_status_message, #vending_status_message { color: #d4b57c; font: 14px var(--body-font); padding: 8px; }
+.confirm_message { color: var(--cream); font: 19px/1.5 var(--game-font); padding: 16px 4px 24px; }
+.confirm_proceed_btn, .accept_game_mode_btn { background: #946d35; }
+.welcome_menu_header { display: block; color: var(--cream); font: 28px var(--game-font) !important; margin-bottom: 12px; }
+#welcome_menu .welcome_menu_description { font: 14px/1.65 var(--body-font); }
+.game_mode { border: 3px solid #0b141c; border-radius: 8px; background: #293742; padding: 14px; margin: 8px 0; color: #e5e6dc; }
+.game_mode.selected, .game_mode[data-selected='true'] { background: #53432e; border-color: var(--gold); }
+.game_modes_list { max-height: calc(100vh - 200px); overflow: auto; }
+.game_mode_action_container { margin-top: 18px; }
+
+/* Context belongs near the action; chat and social panels stay quieter. */
+#walkthrough_menu { top: 82px; left: 20px; max-width: min(300px, calc(100vw - 40px)); background: #17232deb; border: 3px solid #0b141c; border-radius: 8px; padding: 14px 42px 14px 14px; box-sizing: border-box; color: #dce4dc; box-shadow: 0 3px #0005; }
+.walthrough_content { font: 13px/1.5 var(--body-font); }
+#walkthrough_menu .cancel_btn { width: 25px; height: 25px; top: 7px; right: 7px; }
+#walkthrough_menu .cancel_btn::after { font-size: 24px; inset: -4px 0 0; }
+#player_action_tooltip { font: 14px var(--body-font); color: var(--cream); text-shadow: 0 2px #080f15; }
+#shortcut_btn { font: 18px var(--game-font); background: #293742; border: 3px solid #0b141c; border-radius: 5px; padding: 5px 8px; }
+.tooltip, #building_tooltip { box-sizing: border-box; max-width: min(330px, calc(100vw - 24px)); background: #131f29; color: #e1e7df; border: 2px solid #9c8050; border-radius: 7px; padding: 12px; font: 13px/1.5 var(--body-font); box-shadow: 0 4px #0006; }
+#chat_container { bottom: 160px; width: 290px; opacity: 1; }
+#chat_container.read_mode .chat_history { background: transparent; text-shadow: 0 1px #080f15; }
+#chat_container:not(.read_mode) .chat_history { background: #131f29eb; border: 3px solid #0b141c; border-radius: 0 7px 7px 7px; }
+#chat_input { font: 13px var(--body-font); color: #e1e7df; }
+#leaderboard_menu { background: #17232dea; border: 3px solid #0b141c; border-radius: 8px; opacity: 1; font: 13px var(--body-font); }
+.leaderboard_tab { font: 16px var(--game-font); padding: 7px; color: #afbdc2; }
+.leaderboard_tab.selected { color: #e7c389; }
+#death_screen_content { color: #e5dfd0; font-family: var(--body-font); }
+#death_screen_content .ui_btn { float: none; }
+
+@media (max-width: 1200px) {
+    #welcome_container:not(.in_game) .middle_container { width: calc(100% - 280px); margin-left: 220px; }
+    #home_footer { position: relative; width: auto; text-align: center; margin: 16px; }
+    #home_footer a { display: inline-block; margin: 0 6px; }
+}
+@media (max-width: 900px) {
+    #welcome_container:not(.in_game) .left_sidebar { position: relative; width: calc(100% - 32px); left: auto; top: auto; margin: 16px; }
+    .left_sidebar_contents { display: none !important; }
+    #welcome_container:not(.in_game) .middle_container { width: calc(100% - 32px); min-width: 0; margin: 0 16px 20px; }
+    #welcome_container:not(.in_game) #game_caption { margin-top: 20px; }
+    .junon_wordmark { font-size: 60px; }
+}
+@media (max-width: 640px), (max-height: 450px) {
+    #welcome_container:not(.in_game) .middle_container { padding: 16px; }
+    .home_action_row { gap: 6px; flex-wrap: wrap; }
+    .home_action_row .default_play_btn { font-size: 22px; }
+    .home_action_row .tutorial_menu_btn { font-size: 17px; }
+    .home_user_action_container .open_ban_list_btn { float: none; margin-top: 10px; }
+    .main_menu_navigator { padding: 0 12px; }
+    .new_game_container, .settings_container { padding: 16px; }
+    .settings_container { height: calc(100vh - 150px); }
+    #storage_menu.modal_menu, #processor_menu.modal_menu, #oxygen_tank_menu.modal_menu,
+    #vending_machine_menu.modal_menu, #confirm_menu.modal_menu, #select_difficulty_menu.modal_menu,
+    #welcome_menu.modal_menu, #team_full_menu.modal_menu, #rules_menu.modal_menu,
+    #trade_menu.modal_menu, #slave_trade_menu.modal_menu, #hangar_controller_menu.modal_menu {
+        left: 50% !important; top: 50% !important; width: min(460px, calc(100vw - 24px)) !important;
+        height: auto !important; max-height: calc(100vh - 24px); padding: 18px;
+    }
+    #walkthrough_menu { top: 170px; left: 10px; width: 260px; }
+    #chat_container { bottom: 75px; width: min(270px, calc(100vw - 24px)); }
+    .storage_player_inventory { gap: 5px; }
+    .modal_menu > .menu_main_header { font-size: 22px; }
+}
+@media (max-width: 480px) {
+    .junon_wordmark { font-size: 52px; }
+    .junon_tagline { font-size: 11px; letter-spacing: 1px; }
+    .home_action_row .default_play_btn { flex-basis: 100%; }
+    .colony_filter_tab { font-size: 12px; padding: 6px; }
+    .search_world_btn { padding-inline: 8px; }
+    .game_list_header { gap: 4px; }
+    .storage_player_inventory { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+
+#welcome_container .home_action_row .btn { border: 3px solid #080f15; background-color: #2d3a44; }
+#welcome_container .home_action_row .default_play_btn { font-size: 24px; }
+#welcome_container .home_action_row .tutorial_menu_btn { font-size: 20px; }
+#welcome_container .home_action_row .settings_menu_btn { font-size: 16px; }
+#welcome_container #login_btn { background-color: #293742; border: 3px solid #080f15; font-size: 17px; width: auto; }
+#desktop_transition_section { max-width: 920px; }
+#desktop_transition_notice { background: #15232ded; border: 2px solid #34434e; border-radius: 8px; color: #a9b7bc; font: 12px/1.65 var(--body-font); text-align: left; }
+#desktop_transition_notice a { color: #d4b57c; }
+.confirm_ok_btn { background: #946d35; color: var(--cream); border: 3px solid var(--ink); border-radius: 6px; padding: 9px 16px; font: 18px var(--game-font); cursor: pointer; }
+.game_mode h3 { color: var(--cream); font: 21px var(--game-font); margin: 0 0 7px; }
+.game_mode_description { font: 13px/1.55 var(--body-font); color: #bdcbc9; }
+
+/* Secondary systems share the same visual language, not separate legacy skins. */
+.colony_tab, .team_tab, .terminal_tab, .atm_tab, .trade_type_tab, .vending_machine_tab {
+    color: #adbdc1; background: #131f29; border: 2px solid #0b141c; border-radius: 5px;
+    padding: 7px 10px; margin: 2px; font: 15px var(--game-font); cursor: pointer;
+}
+.colony_tab.selected, .team_tab.selected, .terminal_tab.selected, .atm_tab.selected,
+.trade_type_tab.selected, .vending_machine_tab.selected { background: #53432e; color: #f0d39a; border-color: #a88950; }
+.member_list_entry, .friend_entry, .trade_item_row, .colony_info_entry, .permission_entry {
+    box-sizing: border-box; padding: 9px 10px; margin-bottom: 5px; border-radius: 5px;
+    background: #131f29; color: #c8d3d0; font: 13px/1.5 var(--body-font);
+}
+.member_list_entry:hover, .trade_item_row:hover { background: #2d414e; }
+.trade_item_row[data-selected='true'] { background: #53432e; }
+.trade_item_name { color: #d6e1da; font: 14px var(--body-font); }
+.trade_item_count, .trade_item_cost { font-family: var(--game-font); }
+.trade_item_cost { color: #e2bc73; }
+.colony_info_entry_radio_container { margin-top: 7px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.terminal_chat_content, .npc_dialog_content, .sign_message { background: #101c26; border: 2px solid #0b141c; border-radius: 6px; color: #cbd8d0; padding: 12px; font: 14px/1.65 var(--body-font); }
+.keypad_button { background: #293742; border: 3px solid #0b141c; box-shadow: inset 0 2px #ffffff20, inset 0 -3px #0004; border-radius: 6px; color: var(--cream); font: 22px var(--game-font); }
+.keypad_button:hover { background: #53432e; color: var(--cream); }
+#keypad_code_value { background: #101c26; border: 3px solid #0b141c; border-radius: 6px; color: #d6bd82; font: 24px var(--game-font); padding: 8px; height: auto; }
+#craft_menu { box-sizing: border-box; width: min(780px, calc(100vw - 32px)); height: min(510px, calc(100vh - 32px)); left: 50%; top: 50%; transform: translate(-50%, -50%); }
+#craft_menu .template_row { box-sizing: border-box; width: 100%; min-height: 56px; border: 3px solid #0b141c; border-radius: 6px; padding: 8px; margin-bottom: 6px; background: #293742; cursor: pointer; }
+#craft_menu .template_row.active { border-color: var(--gold); background: #53432e; }
+#craft_menu .template_name { color: #eee6d6; font: 14px var(--body-font) !important; }
+#craft_menu .blueprint_name { font: 24px var(--game-font); color: var(--cream); }
+#craft_menu .blueprint_description { line-height: 1.5; color: #bfcdcc; }
+#crafting_template_container { margin: 0; padding-right: 10px; height: calc(100% - 70px); }
+#craft_menu #product_main_container { margin-left: 10px; padding: 12px; }
+@media (max-width: 640px), (max-height: 450px) {
+    #craft_menu.modal_menu { left: 50% !important; top: 50% !important; width: calc(100vw - 24px) !important; height: calc(100vh - 24px) !important; padding: 14px; }
+    #crafting_template_container { width: calc(100% - 185px); }
+    #craft_menu #product_main_container { width: 170px; margin-left: 4px; padding: 8px; }
+    #craft_menu .blueprint_name { display: block; font-size: 19px; }
+}
+
+/* Remove inherited pixel labels, tiny selects and oversized empty list space. */
+#welcome_container select, .main_menu_navigator select {
+    height: auto; min-height: 36px; padding: 6px 10px; line-height: 1.3;
+    color: #e0e6df; background-color: #101c26; border: 2px solid #0b141c;
+    font: 13px var(--body-font);
+}
+.new_game_container { height: auto; }
+.new_game_container .new_colony_name_input { height: 44px; color: #e0e6df; font: 14px var(--body-font); }
+.new_game_container .new_colony_name_input::placeholder { color: #a9b7bc; }
+.new_game_row_count label, .new_game_col_count label { font: 14px var(--body-font); }
+.new_game_row_count select, .new_game_col_count select { width: 110px; }
+.sounds_container > div:not(.menu_main_header) { display: grid; grid-template-columns: 1fr; margin-bottom: 16px; }
+.volume_slider_container { float: none; width: 100%; margin: 10px 0 0; }
+.volume_slider_container input[type='range'] { flex: 1; min-width: 0; width: 100%; }
+.main_colony_list, .search_colony_list { height: clamp(200px, 30vh, 300px); padding: 4px; box-sizing: border-box; }
+.main_colony_list:not(.list_mode) .team_entry_row, .search_colony_list:not(.list_mode) .team_entry_row {
+    box-sizing: border-box; width: calc(33.333% - 12px); max-width: none; min-width: 0;
+    min-height: 210px; margin: 5px 6px; padding: 8px; border: 3px solid #0b141c; border-radius: 8px;
+    box-shadow: inset 0 2px #ffffff18, inset 0 -3px #0003;
+}
+.main_colony_list:not(.list_mode) .team_entry_row .screenshot,
+.search_colony_list:not(.list_mode) .team_entry_row .screenshot { box-sizing: border-box; width: 100%; min-width: 0; max-width: none; height: 135px; object-fit: cover; }
+.game_list_container .team_entry_row .info_name { font: 15px var(--game-font); color: var(--cream); margin: 8px 0 4px; }
+.game_list_container .team_days_alive { font: 12px var(--body-font); color: #a9b7bc; }
+.game_list_container .team_member_count { font: 12px var(--body-font); }
+.colony_list.list_mode .team_entry_row { box-sizing: border-box; min-height: 60px; height: 60px; margin: 4px 0; padding: 8px; border: 2px solid #0b141c; border-radius: 6px; }
+.colony_list.list_mode .team_entry_row .screenshot { width: 56px; height: 38px; }
+#total_online_count { font: 14px var(--game-font); border: 2px solid #0b141c; border-radius: 5px; padding: 5px 10px; background: #17232de8; }
+@media (max-width: 640px) {
+    .main_colony_list:not(.list_mode) .team_entry_row, .search_colony_list:not(.list_mode) .team_entry_row { width: calc(50% - 10px); margin: 5px; min-height: 170px; padding: 6px; }
+    .main_colony_list:not(.list_mode) .team_entry_row .screenshot, .search_colony_list:not(.list_mode) .team_entry_row .screenshot { height: 100px; }
+    .colony_list.list_mode .team_entry_row .team_days_alive { display: none; }
+}
+
+.game_list_header .gallery_mode_btn { order: 2; margin-left: auto; }
+.game_list_header .list_mode_btn { order: 3; margin-left: 0; }
+#changelogs a { color: #d4b57c; }
+@media (max-width: 640px), (max-height: 450px) {
+    .new_game_container { height: auto; }
+    .settings_container .sounds_container { padding: 0 0 16px; }
+}
+
+#walkthrough_menu { bottom: auto; }
+
+.main_menu .resume_menu_btn { background: #946d35; }
+.main_menu .settings_menu_btn { background: #293742; }
+.main_menu .exit_game_menu_btn { color: #d8bbb0; }
+#changelogs { background: transparent; border: 0; }
+#select_difficulty_menu { width: min(760px, calc(100vw - 32px)); }
+#select_difficulty_menu .game_modes_list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+#select_difficulty_menu .menu_main_header { grid-column: 1 / -1; margin-bottom: 6px; }
+#select_difficulty_menu .game_mode { box-sizing: border-box; width: auto; height: auto; min-height: 185px; margin: 0; }
+.game_mode_warning { color: #e6bd90; font: 13px/1.5 var(--body-font); margin-bottom: 12px; }
+@media (max-width: 640px), (max-height: 450px) {
+    #select_difficulty_menu.modal_menu { width: min(760px, calc(100vw - 24px)) !important; }
+    #select_difficulty_menu .game_mode { min-height: 145px; padding: 10px; }
+}
+@media (max-width: 480px) {
+    #select_difficulty_menu .game_modes_list { grid-template-columns: 1fr; }
+    #select_difficulty_menu .game_mode { min-height: 0; }
+}
+
+.colony_empty_state:not([hidden]) { position: absolute; top: 120px; left: 24px; right: 24px; display: grid; gap: 10px; padding: 30px 16px; text-align: center; pointer-events: none; }
+.colony_empty_state strong { color: #d5c8ab; font: 22px var(--game-font); }
+.colony_empty_state span { color: #a9b7bc; font: 13px/1.5 var(--body-font); }

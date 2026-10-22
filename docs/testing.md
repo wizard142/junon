@@ -115,10 +115,10 @@ server really applied the change instead of the client having predicted it.
   from `support/screen.js`. They also all fail silently while a modal menu is
   open, because `Game#isModalMenuOpen()` makes `triggerEntityMouseEvents()` bail
   out.
-- The harness runs without MySQL, so `sector.createdAt` stays 0 and the
-  "Choose a Game Mode" menu never opens by itself
-  (`SelectDifficultyMenu#showGameMode` gates on it). `selectGameMode()` opens it
-  and then drives it normally.
+- New owner-controlled colonies now offer Sandbox / Survival / Hardcore even
+  when `sector.createdAt` is 0. The join helper dismisses the picker for ordinary
+  gameplay scenarios without assigning a mode. Pass `keepModePicker: true` to
+  exercise the auto-open path; `game_modes.spec.js` applies all three choices.
 - A colony with no game mode picked is not peaceful. Most chat commands only run
   in a peaceful colony (`BaseCommand#canExecute`), and in a peaceful one the
   owner's crafts succeed without the ingredients
@@ -174,3 +174,19 @@ server really applied the change instead of the client having predicted it.
 At handoff, name the exact commands run and their outcomes. If MySQL, credentials,
 native modules, browsers, or external services prevented validation, state that
 constraint and the narrower checks that did run.
+
+## Original art and terrain materials
+
+Run the focused checks from the repository root:
+
+```sh
+npm exec --workspace packages/junon-io -- jest test/world/sprite_assets.test.js test/world/liquid_surface.test.js test/menus/select_difficulty_menu.test.js --runInBand
+```
+
+These verify original portable-art byte identity, 214 alpha masks/canvases,
+both trimmed atlas mappings, seamless liquid boundaries and neighbor sampling,
+and the restored mode picker. `terrain_materials.spec.js` creates a separate
+sandbox using `?stress=1` to avoid disconnecting another local player, paints
+water/lava/oil/ore with normal owner commands, and compares actual GPU samples
+across overlapping liquid sprites. `world_colors.spec.js` covers the dark world
+and custom-sized creation path. Screenshots honor `JUNON_UI_SCREENSHOT_DIR`.

@@ -1415,10 +1415,13 @@ class Game {
 
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.BILINEAR
 
+    const surfaces = ['water_surface.png', 'lava_surface.png', 'oil_surface.png', 'oil.png']
+    surfaces.forEach(name => PIXI.loader.add(name, '/assets/images/' + name))
     PIXI.loader
       .add("/assets/images/background/atlas-2222.json")
       .add("/assets/images/cc.fnt")
       .load((loader, resources) => {
+        surfaces.forEach(name => PIXI.Texture.addToCache(resources[name].texture, name))
         let selfTime = (new Date()).getTime() - window.textureSetupTime
         let time = (new Date()).getTime() - window.initializeTime
         cb()
