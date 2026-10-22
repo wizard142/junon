@@ -1748,5 +1748,395 @@
       "width": 48,
       "height": 18
     }
+  },
+  "water.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "lava.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "lava_bubble.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "ice.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "lava_rock.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "ground.png": {
+    "width": 64,
+    "height": 64,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 64,
+      "height": 64
+    }
+  },
+  "dirt_1.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 8,
+      "width": 19,
+      "height": 13
+    }
+  },
+  "dirt_2.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 3,
+      "top": 4,
+      "width": 17,
+      "height": 23
+    }
+  },
+  "dirt_3.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 4,
+      "width": 28,
+      "height": 26
+    }
+  },
+  "dirt_4.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "meteor_rock.png": {
+    "width": 64,
+    "height": 64,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 64,
+      "height": 64
+    }
+  },
+  "asteroid_texture.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "rock_dark.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "grass_floor.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "rock_0.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 1,
+      "top": 0,
+      "width": 31,
+      "height": 31
+    }
+  },
+  "rock_1.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "rock_2.png": {
+    "width": 31,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 31,
+      "height": 32
+    }
+  },
+  "rock_2_straight.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "rock_3.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "rock_4.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "asteroid_0_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 1,
+      "top": 0,
+      "width": 31,
+      "height": 31
+    }
+  },
+  "asteroid_1_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 1,
+      "top": 0,
+      "width": 31,
+      "height": 31
+    }
+  },
+  "asteroid_2_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 1,
+      "top": 0,
+      "width": 31,
+      "height": 32
+    }
+  },
+  "asteroid_2_straight_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "asteroid_3_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "asteroid_4_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "copper_asteroid_0_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "copper_asteroid_1_ridge.png": {
+    "width": 33,
+    "height": 30,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 33,
+      "height": 30
+    }
+  },
+  "copper_asteroid_2_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 1,
+      "top": 0,
+      "width": 31,
+      "height": 32
+    }
+  },
+  "copper_asteroid_2_straight_ridge.png": {
+    "width": 33,
+    "height": 31,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 33,
+      "height": 31
+    }
+  },
+  "copper_asteroid_3_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "copper_asteroid_4_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "meteorite_asteroid_0_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "meteorite_asteroid_1_ridge.png": {
+    "width": 33,
+    "height": 30,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 33,
+      "height": 30
+    }
+  },
+  "meteorite_asteroid_2_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "meteorite_asteroid_2_straight_ridge.png": {
+    "width": 33,
+    "height": 31,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 33,
+      "height": 31
+    }
+  },
+  "meteorite_asteroid_3_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "meteorite_asteroid_4_ridge.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
+  },
+  "oil.png": {
+    "width": 32,
+    "height": 32,
+    "bounds": {
+      "left": 0,
+      "top": 0,
+      "width": 32,
+      "height": 32
+    }
   }
 }

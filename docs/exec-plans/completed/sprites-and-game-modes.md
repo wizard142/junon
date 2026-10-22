@@ -1,3 +1,7 @@
+> Art direction superseded by [original art and terrain polish](original-art-and-terrain-polish.md).
+> The original mob/item PNGs were restored after the user rejected replacement
+> designs. The mode-picker fix remains in place.
+
 # Outcome
 
 Restore the automatic Peaceful / Survival / Hardcore choice for newly created

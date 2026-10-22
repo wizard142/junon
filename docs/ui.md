@@ -75,13 +75,22 @@ stays removed. Screenshots honor `JUNON_UI_SCREENSHOT_DIR`.
 
 ## Creature and item art
 
-`art/sprite-refresh/` contains reviewed source atlases, prompt direction, the
-175-texture manifest and original geometry. The final overhead weapon sheet
-supersedes the weapon cells in the base item sheets: muted industrial receivers,
-vents and panels, with top surfaces visible and no hanging side-view grips.
-`node scripts/refresh-sprites.cjs` extracts these into named source PNGs and both
-legacy packed atlases, respecting trimmed-frame coordinates. The world terrain,
-colony structures, lighting and dark palette remain unchanged.
+The original 175 mob, character-part and portable item textures are restored.
+The later replacement industrial silhouettes were rejected. Their manifest
+batches preserve original PNG bytes, rather than regenerating the designs.
+
+`art/sprite-refresh/` documents 39 understated terrain material edits: lava,
+water, oil, rock, ore, dirt and related source variants. Original canvases,
+alpha masks and dark outline pixels remain authoritative. The packer updates
+standalone PNGs and both trimmed legacy atlases. See its README for edit prompts
+and `node scripts/refresh-sprites.cjs` for repeatable packaging.
+
+Liquid sprites use shared world-aligned crops of a 64px repeating material
+packed twice into a 128px sheet. They retain the
+original under-shore overlap and world-edge coverage, with no neighbor rotation
+to interrupt the continuous material field. Bubbles, trails, lighting, fog and
+the original dark world rendering remain active. No new terrain types or game
+rules are introduced.
 
 The three mode cards (Sandbox, Survival, Hardcore) open automatically for a new
 owner-controlled non-tutorial colony without an assigned mode. A missing/zero

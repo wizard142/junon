@@ -174,3 +174,19 @@ server really applied the change instead of the client having predicted it.
 At handoff, name the exact commands run and their outcomes. If MySQL, credentials,
 native modules, browsers, or external services prevented validation, state that
 constraint and the narrower checks that did run.
+
+## Original art and terrain materials
+
+Run the focused checks from the repository root:
+
+```sh
+npm exec --workspace packages/junon-io -- jest test/world/sprite_assets.test.js test/world/liquid_surface.test.js test/menus/select_difficulty_menu.test.js --runInBand
+```
+
+These verify original portable-art byte identity, 214 alpha masks/canvases,
+both trimmed atlas mappings, seamless liquid boundaries and neighbor sampling,
+and the restored mode picker. `terrain_materials.spec.js` creates a separate
+sandbox using `?stress=1` to avoid disconnecting another local player, paints
+water/lava/oil/ore with normal owner commands, and compares actual GPU samples
+across overlapping liquid sprites. `world_colors.spec.js` covers the dark world
+and custom-sized creation path. Screenshots honor `JUNON_UI_SCREENSHOT_DIR`.

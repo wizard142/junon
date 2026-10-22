@@ -5,7 +5,7 @@ const Protocol = require("./../../../../../common/util/protocol")
 class Oil extends BaseUnderground {
 
   getSpritePath() {
-    return 'black.png'
+    return 'oil.png'
   }
 
   getType() {
